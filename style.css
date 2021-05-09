@@ -1,0 +1,136 @@
+:root {
+  --bg: rgb(26, 24, 31);
+  --clk-line: white;
+}
+
+* {
+  list-style: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 100;
+  color: white;
+}
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+body {
+  background-color: var(--bg);
+}
+
+#page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 1500px;
+  margin: 0 auto;
+  height: 100vh;
+}
+#page i {
+  margin-right: 1rem;
+}
+
+/* Navbar */
+#page header {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0;
+}
+#page header #temp {
+  font-size: 2.1rem;
+}
+#page header #menu-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+#page header #menu-icon span {
+  display: block;
+  margin: 0.4rem 0;
+  width: 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  transition: border-bottom 0.2s, width 0.8s;
+}
+#page header #menu-icon:hover span {
+  border-bottom: 1px solid white;
+}
+#page header #menu-icon:hover span:nth-child(2) {
+  width: 0.75rem;
+}
+#page header #menu-icon:hover span:nth-child(3) {
+  width: 1.5rem;
+}
+
+/* Main Data */
+#page main {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#page main #clock {
+  color: white;
+  font-size: 10rem;
+  margin-bottom: 2rem;
+}
+#page main #clock #dots {
+  animation: Blink 2s infinite step-end;
+}
+#page main #date {
+  font-size: 2rem;
+  opacity: 75%;
+}
+#page main #location {
+  position: absolute;
+  bottom: 2rem;
+  opacity: 50%;
+  font-size: 1.5rem;
+}
+
+/* Menu */
+#page main aside {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5rem 0rem;
+  height: 100%;
+}
+#page main aside li {
+  margin: 2rem 0;
+  text-align: right;
+}
+#page main aside li button {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.5);
+
+  transition: font-weight 0.1s, color 0.3s;
+}
+#page main aside li:hover button {
+  color: white;
+  font-weight: 300;
+}
+
+@keyframes Blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes Appear {
+  0% {
+    opacity: 0;
+    right: -5rem;
+  }
+  100% {
+    opacity: 1;
+    right: 0;
+  }
+}
