@@ -77,7 +77,12 @@ function setDate(data) {
 function setTime(data) {
   let hour = data.getHours();
   let min = data.getMinutes();
-  const m = "AM";
+  let m = "AM";
+
+  if (hour > 12) {
+    m = "PM";
+    hour -= 12;
+  }
 
   hour = hour < 10 ? "0" + hour : hour;
   min = min < 10 ? "0" + min : min;
