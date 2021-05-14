@@ -1,98 +1,75 @@
+import clock from "./clock.js";
+import chronos from "./chronos.js";
+
 const menuElement = document.getElementById("menu-icon");
 const asideElement = document.querySelector("aside");
-const tempElement = document.querySelector("#temp span");
-const dateElement = document.querySelector("#date span");
-const clockElement = document.getElementById("clock");
 const locationElement = document.getElementById("location");
 
-let date = new Date();
-let menuOpen = false;
+let isMenuOpen = false;
 let enableMenuChange = true;
-let update;
+let currentPage;
+
+const animationTime = 500;
 
 // Main event
 window.addEventListener("load", (e) => {
-  setDate(date);
-  setTime(date);
   setLocation();
 
-  update = setInterval(() => {
-    const current = new Date();
-
-    // Updates time
-    if (
-      date.getHours() < current.getHours() ||
-      date.getMinutes() < current.getMinutes()
-    ) {
-      setTime(current);
-      date = current;
-    }
-
-    // Updates date
-    if (date.getDay() < current.getDay()) {
-      setDate(current);
-      date = current;
-    }
-  }, 1000);
+  clock.setup();
+  chronos.setup();
 
   menuElement.innerHTML = `<span></span>\n`.repeat(3);
+  menuElement.onclick = handleMenuClick;
+
+  clock.linkElement.onclick = () => handleMenuItemClick(clock);
+  chronos.linkElement.onclick = () => handleMenuItemClick(chronos);
+
+  chronos.linkElement.click();
 });
 
 // Menu
-menuElement.addEventListener("click", () => {
+function handleMenuClick() {
   if (enableMenuChange) {
-    menuOpen = !menuOpen;
+    isMenuOpen = !isMenuOpen;
 
-    if (menuOpen) {
+    if (isMenuOpen) {
       enableMenuChange = false;
       asideElement.style.opacity = 1;
-      asideElement.style.animation = "Appear 1s";
+      asideElement.style.animation = `AppearHorizontal ${animationTime}ms`;
       setTimeout(() => {
         asideElement.style.animation = "";
         enableMenuChange = true;
-      }, 1000);
+      }, animationTime);
     } else {
       enableMenuChange = false;
-      asideElement.style.animation = "";
-      asideElement.style.animation = "Appear 1s reverse";
+      asideElement.style.animation = `AppearHorizontal ${animationTime}ms reverse`;
       setTimeout(() => {
         asideElement.style.animation = "";
         asideElement.style.opacity = 0;
         enableMenuChange = true;
-      }, 1000);
+      }, animationTime);
     }
   }
-});
-
-// DATE
-function setDate(data) {
-  dateElement.innerHTML = `
-    ${data.getDate()} de
-    ${portugueseMonths[data.getMonth() - 1]} de
-    ${data.getFullYear()}
-  `;
 }
 
-// HOURS
-function setTime(data) {
-  let hour = data.getHours();
-  let min = data.getMinutes();
-  let m = "AM";
+// Menu item
+function handleMenuItemClick(next) {
+  const prev = currentPage;
 
-  if (hour > 12) {
-    m = "PM";
-    hour -= 12;
+  if (prev) {
+    prev.linkElement.classList.remove("selected");
+    prev.pageElement.classList.remove("show");
+    prev.onHidden();
   }
 
-  hour = hour < 10 ? "0" + hour : hour;
-  min = min < 10 ? "0" + min : min;
+  next.linkElement.classList.add("selected");
+  next.pageElement.classList.add("show");
+  next.onShow();
 
-  clockElement.innerHTML = `
-  ${hour}<span id="dots">:</span>${min} ${m}
-`;
+  currentPage = next;
 }
 
-// CITY and STATE
+// Location label
 function setLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async ({ coords }) => {
@@ -109,7 +86,6 @@ function setLocation() {
   }
 }
 
-// Constants
 const UFList = {
   Acre: "AC",
   Alagoas: "AL",
@@ -139,18 +115,3 @@ const UFList = {
   Sergipe: "SE",
   Tocantins: "TO",
 };
-
-const portugueseMonths = [
-  "janeiro",
-  "fevereiro",
-  "março",
-  "abril",
-  "maio",
-  "junho",
-  "julho",
-  "agosto",
-  "setembro",
-  "outubro",
-  "novembro",
-  "dezembro",
-];

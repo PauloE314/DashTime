@@ -7,44 +7,60 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;400;500;600&family=Work+Sans:wght@100;200;300;400&display=swap"
       rel="stylesheet"
     />
     <script
       src="https://kit.fontawesome.com/86b9389f1a.js"
       crossorigin="anonymous"
     ></script>
-    <title>DashTime</title>
+    <title>DeltaTime</title>
   </head>
   <body>
     <div id="page">
       <header>
-        <div id="temp">
-          <i class="fas fa-thermometer-half"></i>
-          <span>38°C</span>
+        <div id="dt">
+          <span>DeltaTime</span>
         </div>
 
         <button id="menu-icon"></button>
       </header>
 
       <main>
-        <div id="clock">12<span id="dots">:</span>00 AM</div>
-        <div id="date">
-          <i class="far fa-calendar-alt"></i>
-          <span>05 de maio de 2021</span>
+        <div>
+          <div id="clock" class="data">
+            <div id="watch">12<span id="dots">:</span>00 AM</div>
+            <div id="date">
+              <i class="far fa-calendar-alt"></i>
+              <span>05 de maio de 2021</span>
+            </div>
+          </div>
+
+          <div id="chronos" class="data">
+            <div id="timer">
+              <span id="time">00:00:00</span
+              ><!--
+            --><span id="small">00</span>
+            </div>
+
+            <button id="start">
+              <div id="start-icon"></div>
+            </button>
+          </div>
         </div>
-        <div id="location"></div>
 
         <aside>
           <ul>
-            <li><button>Relógio</button></li>
-            <li><button>Cronometro</button></li>
-            <li><button>Sobre nós</button></li>
+            <li><button id="clk-link">Relógio</button></li>
+            <li><button id="chr-link">Cronometro</button></li>
           </ul>
         </aside>
       </main>
+
+      <footer id="location"></footer>
     </div>
-    <script src="code.js"></script>
+    <script src="js/index.js" type="module"></script>
   </body>
 </html>
