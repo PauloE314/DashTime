@@ -11,8 +11,7 @@ let currentPage;
 
 const animationTime = 500;
 
-// Main event
-window.addEventListener("load", (e) => {
+function main() {
   setLocation();
 
   clock.setup();
@@ -24,8 +23,8 @@ window.addEventListener("load", (e) => {
   clock.linkElement.onclick = () => handleMenuItemClick(clock);
   chronos.linkElement.onclick = () => handleMenuItemClick(chronos);
 
-  chronos.linkElement.click();
-});
+  clock.linkElement.click();
+}
 
 // Menu
 function handleMenuClick() {
@@ -52,11 +51,11 @@ function handleMenuClick() {
   }
 }
 
-// Menu item
+// Handles menu item change
 function handleMenuItemClick(next) {
   const prev = currentPage;
 
-  if (prev) {
+  if (prev && prev !== next) {
     prev.linkElement.classList.remove("selected");
     prev.pageElement.classList.remove("show");
     prev.onHidden();
@@ -115,3 +114,5 @@ const UFList = {
   Sergipe: "SE",
   Tocantins: "TO",
 };
+
+window.addEventListener("load", (e) => main());
